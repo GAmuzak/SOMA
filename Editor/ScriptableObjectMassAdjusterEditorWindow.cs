@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using com.amuzak.SOMA.Logic;
 
-namespace Editor
+namespace com.amuzak.SOMA.Editor
 {
     public class ScriptableObjectMassAdjusterEditorWindow : EditorWindow
     {
@@ -38,7 +39,7 @@ namespace Editor
 
             if (GUILayout.Button("Apply Changes"))
             {
-                Debug.Log("Apply Changes functionality not implemented yet.");
+                ScriptableObjectMassAdjuster.ApplyChanges(selectedType, regexPattern, fieldValues);
             }
         }
 
@@ -136,7 +137,7 @@ namespace Editor
                 catch
                 {
                     Debug.LogError($"{field.Name} has been assigned an incorrect data type");
-                    fieldValues[field] = string.Empty;
+                    fieldValues[field] = null;
                 }
             }
         }
@@ -149,14 +150,11 @@ namespace Editor
             FieldInfo[] fields = selectedType.GetFields(BindingFlags.Public | BindingFlags.Instance);
             foreach (FieldInfo field in fields)
             {
-                if (field.FieldType == typeof(int)) fieldValues[field] = null;
-                else if (field.FieldType == typeof(float)) fieldValues[field] = null;
-                else if (field.FieldType == typeof(string)) fieldValues[field] = string.Empty;
-                else if (field.FieldType == typeof(bool)) fieldValues[field] = false;
+                fieldValues[field] = null;
             }
         }
 
-        private bool? ParseBool(string value)
+        private static bool? ParseBool(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return null;
 
@@ -165,6 +163,7 @@ namespace Editor
             {
                 "true" or "t" or "1" => true,
                 "false" or "f" or "0" => false,
+                _ => throw new Exception()
             };
         }
     }
