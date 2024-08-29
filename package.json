@@ -1,0 +1,12 @@
+{
+  "name": "com.amuzak.soma",
+  "version": "0.1.0-alpha",
+  "displayName": "SOMA: Scriptable Object Mass Adjuster",
+  "description": "A simple editor tool to quickly mass edit scriptable object data",
+  "unity": "2022.3",
+  "author": {
+    "name": "Rishav Banerjee",
+    "email": "rishavbanerjee1710@gmail.com"
+  },
+  "scopedRegistries": []
+}
