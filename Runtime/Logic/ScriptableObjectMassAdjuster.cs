@@ -33,16 +33,12 @@ namespace com.amuzak.SOMA.Logic
                 string assetPath = AssetDatabase.GUIDToAssetPath(guid);
                 string assetName = Path.GetFileNameWithoutExtension(assetPath);
 
-                if (regex.IsMatch(assetName))
-                {
-                    ScriptableObject asset = AssetDatabase.LoadAssetAtPath(assetPath, selectedType) as ScriptableObject;
-                    if (asset != null)
-                    {
-                        ApplyFieldValuesToAsset(asset, selectedType, fieldValues);
-                        EditorUtility.SetDirty(asset);
-                        modifiedAssetsLog += $"Modified: {assetName}\n";
-                    }
-                }
+                if (!regex.IsMatch(assetName)) continue;
+                ScriptableObject asset = AssetDatabase.LoadAssetAtPath(assetPath, selectedType) as ScriptableObject;
+                if (asset == null) continue;
+                ApplyFieldValuesToAsset(asset, selectedType, fieldValues);
+                EditorUtility.SetDirty(asset);
+                modifiedAssetsLog += $"Modified: {assetName}\n";
             }
             if(modifiedAssetsLog.Length > 0)
             {

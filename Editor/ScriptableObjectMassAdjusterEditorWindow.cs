@@ -22,9 +22,20 @@ namespace com.amuzak.SOMA.Editor
             GetWindow<ScriptableObjectMassAdjusterEditorWindow>("SO Mass Adjuster");
         }
 
+        private void OnEnable()
+        {
+            SelectTypeAtIndex(0);
+        }
+
         private void OnGUI()
         {
+            bool previousFindMySOsOnly = findMySOsOnly;
             findMySOsOnly = EditorGUILayout.Toggle("Find My SOs Only", findMySOsOnly);
+
+            if (findMySOsOnly != previousFindMySOsOnly)
+            {
+                SelectTypeAtIndex(0);
+            }
 
             searchQuery = EditorGUILayout.TextField("Search", searchQuery);
 
@@ -140,6 +151,14 @@ namespace com.amuzak.SOMA.Editor
                     fieldValues[field] = null;
                 }
             }
+        }
+
+        private void SelectTypeAtIndex(int index)
+        {
+            List<Type> scriptableObjectTypes = GetAllScriptableObjectTypes();
+            if (scriptableObjectTypes.Count <= index) return;
+            selectedType = scriptableObjectTypes[index];
+            ResetFieldValues();
         }
 
         private void ResetFieldValues()
