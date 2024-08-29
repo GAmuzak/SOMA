@@ -1,4 +1,4 @@
-# Scriptable Object Mass Adjuster for Unity
+# SOMA: Scriptable Object Mass Adjuster for Unity
 
 A Unity Editor tool that allows for mass editing of Scriptable Objects based on type and a Regex-based search pattern. This tool provides an Editor Window to select a defined scriptable object type, and view the associated layout. Edits can be made on this layout. Based on the regex pattern, all matching files will have the changes applied to it. Untouched fields will be left as is.
 
@@ -20,7 +20,7 @@ https://github.com/GAmuzak/SOMA.git
 
 and add it as a git package in the Unity Package Manager
 
-![Add_Package_Via_Git](Documentation~\add_package_from_git.png)
+![Add_Package_Via_Git](https://github.com/GAmuzak/SOMA/blob/main/Documentation~/add_package_from_git.png)
 
 ## Requirements
 
@@ -36,7 +36,7 @@ and add it as a git package in the Unity Package Manager
 ## Limitations
 
 - Only displays `ints`, `floats`, `strings` and `bools` for now
-- `ints` and `floats` are converted to strings
+- `ints`, `floats` and `bools` are parsed from strings, and validated in console
 
 ## Contributing
 
