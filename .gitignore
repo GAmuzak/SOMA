@@ -74,3 +74,8 @@ crashlytics-build.properties
 # vscode
 .vscode
 /Documentation~/pages/
+
+CHANGELOG.md.meta
+CONTRIBUTING.md.meta
+LICENSE.meta
+README.md.meta
