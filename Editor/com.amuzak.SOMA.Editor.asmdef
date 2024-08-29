@@ -1,0 +1,18 @@
+﻿{
+  "name": "com.amuzak.SOMA.Editor",
+  "rootNamespace": "com.amuzak.SOMA.Editor",
+  "references": [
+    "com.amuzak.SOMA"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
