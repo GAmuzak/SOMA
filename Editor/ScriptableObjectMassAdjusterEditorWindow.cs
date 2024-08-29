@@ -12,6 +12,7 @@ namespace com.amuzak.SOMA.Editor
     {
         private Type selectedType;
         private readonly Dictionary<FieldInfo, object> fieldValues = new Dictionary<FieldInfo, object>();
+        private readonly Stack<Dictionary<FieldInfo, object>> undoStack = new Stack<Dictionary<FieldInfo, object>>();
         private string regexPattern = "";
         private bool findMySOsOnly = true;
         private string searchQuery = "";
@@ -50,7 +51,39 @@ namespace com.amuzak.SOMA.Editor
 
             if (GUILayout.Button("Apply Changes"))
             {
+                undoStack.Push(new Dictionary<FieldInfo, object>(fieldValues));
+
                 ScriptableObjectMassAdjuster.ApplyChanges(selectedType, regexPattern, fieldValues);
+            }
+
+            if (GUILayout.Button("Undo"))
+            {
+                UndoLastChange();
+            }
+
+            Event e = Event.current;
+            if (e.type == EventType.KeyDown && e.control && e.keyCode == KeyCode.Z)
+            {
+                UndoLastChange();
+            }
+        }
+
+        private void UndoLastChange()
+        {
+            if (undoStack.Count > 0)
+            {
+                fieldValues.Clear();
+                Dictionary<FieldInfo, object> lastState = undoStack.Pop();
+                foreach (KeyValuePair<FieldInfo, object> field in lastState)
+                {
+                    fieldValues[field.Key] = field.Value;
+                }
+                ScriptableObjectMassAdjuster.ApplyChanges(selectedType, regexPattern, fieldValues);
+                Debug.Log("All changes were undone.");
+            }
+            else
+            {
+                Debug.Log("No changes to undo.");
             }
         }
 
